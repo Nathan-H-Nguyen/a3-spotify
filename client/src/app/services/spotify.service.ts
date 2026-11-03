@@ -77,7 +77,7 @@ export class SpotifyService {
     var response = this.sendRequestToExpress(`/artist-top-tracks/${encodeURIComponent(artistId)}`);
 
     return response.then((data) => {
-      return data.map((item:any) => new TrackData(item));
+      return data.tracks.map((item:any) => new TrackData(item));
     });
   }
 
@@ -87,7 +87,7 @@ export class SpotifyService {
     var response = this.sendRequestToExpress(`/artist-albums/${encodeURIComponent(artistId)}`);
 
     return response.then((data) => {
-      return data.map((item:any) => {
+      return data.items.map((item:any) => {
         return new AlbumData(item);
       });
     });
