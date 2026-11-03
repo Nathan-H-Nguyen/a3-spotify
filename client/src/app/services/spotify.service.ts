@@ -45,18 +45,16 @@ export class SpotifyService {
     var response = this.sendRequestToExpress(`/search/${category}/${encodeURIComponent(resource)}`);
 
     return response.then((data) => {
-      return data.map((item:any) => {
-        switch (category) {
-          case 'artist':
-            return data.artists.map((item:any) => new ArtistData(item));
-          case 'track':
-            return data.tracks.map((item:any) => new TrackData(item));
-          case 'album':
-            return data.albums.map((item:any) => new AlbumData(item));
-          default:
-            throw new Error('Invalid category');
-        }
-      });
+      switch (category) {
+        case 'artist':
+          return data.artists.items.map((item:any) => new ArtistData(item));
+        case 'track':
+          return data.tracks.items.map((item:any) => new TrackData(item));
+        case 'album':
+          return data.albums.items.map((item:any) => new AlbumData(item));
+        default:
+          throw new Error('Invalid category');
+      }
     });
   }
 
