@@ -48,11 +48,11 @@ export class SpotifyService {
       return data.map((item:any) => {
         switch (category) {
           case 'artist':
-            return data.map((item:any) => new ArtistData(item));
+            return data.artists.map((item:any) => new ArtistData(item));
           case 'track':
-            return data.map((item:any) => new TrackData(item));
+            return data.tracks.map((item:any) => new TrackData(item));
           case 'album':
-            return data.map((item:any) => new AlbumData(item));
+            return data.albums.map((item:any) => new AlbumData(item));
           default:
             throw new Error('Invalid category');
         }
