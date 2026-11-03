@@ -64,7 +64,7 @@ export class SpotifyService {
     //TODO: use the artist endpoint to make a request to express.
     //Again, you may need to encode the artistId.
 
-    var response = this.sendRequestToExpress(`/artist/${artistId}`);
+    var response = this.sendRequestToExpress(`/artist/${encodeURIComponent(artistId)}`);
 
     return response.then((data) => {
       return new ArtistData(data);
@@ -74,7 +74,7 @@ export class SpotifyService {
   getTopTracksForArtist(artistId:string):Promise<TrackData[]> {
     //TODO: use the top tracks endpoint to make a request to express.
 
-    var response = this.sendRequestToExpress(`/artist-top-tracks/${artistId}`);
+    var response = this.sendRequestToExpress(`/artist-top-tracks/${encodeURIComponent(artistId)}`);
 
     return response.then((data) => {
       return data.map((item:any) => new TrackData(item));
@@ -84,7 +84,7 @@ export class SpotifyService {
   getAlbumsForArtist(artistId:string):Promise<AlbumData[]> {
     //TODO: use the albums for an artist endpoint to make a request to express.
 
-    var response = this.sendRequestToExpress(`/artist-albums/${artistId}`);
+    var response = this.sendRequestToExpress(`/artist-albums/${encodeURIComponent(artistId)}`);
 
     return response.then((data) => {
       return data.map((item:any) => {
