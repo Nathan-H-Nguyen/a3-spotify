@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ArtistData } from '../../data/artist-data';
 import { TrackData } from '../../data/track-data';
 import { AlbumData } from '../../data/album-data';
-
+import { SpotifyService } from '../../services/spotify.service';
 @Component({
     selector: 'app-artist-page',
     templateUrl: './artist-page.component.html',
@@ -16,11 +16,28 @@ export class ArtistPageComponent implements OnInit {
 	topTracks:TrackData[];
 	albums:AlbumData[];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private spotifyService: SpotifyService) { }
 
   ngOnInit() {
     this.artistId = this.route.snapshot.paramMap.get('id');
     //TODO: Inject the spotifyService and use it to get the artist data, top tracks for the artist, and the artist's albums
+    this.spotifyService.getArtist(this.artistId).then((artistData) => {
+      this.artist = artistData;
+    }).catch((err) => {
+      console.log("Error loading artist: ", err);
+    })
+
+    this.spotifyService.getTopTracksForArtist(this.artistId).then((topTrackData) => {
+      this.topTracks = topTrackData;
+    }).catch((err) => {
+      console.log("Error loading top tracks for artist: ", err);
+    })
+
+    this.spotifyService.getAlbumsForArtist(this.artistId).then((albumData) => {
+      this.albums = albumData;
+    }).catch((err) => {
+      console.log("Error loading albums for artist: ", err);
+    })
   }
 
 }
