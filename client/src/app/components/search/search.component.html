@@ -19,4 +19,6 @@
   ></app-carousel>
 }
 <!--TODO: Display a track-list component if searching for a track. Bind track-list's tracks.-->
-<app-track-list [tracks]="resources"></app-track-list>
+@if (searchCategory === "track") {
+  <app-track-list [tracks]="resources"></app-track-list>
+}
